@@ -5,3 +5,4 @@ while not pas or re.search(r'[\s]', pas):
     pas = input('Введите пароль: ')
 else:
     print("Пароль успешно создан")
+END
