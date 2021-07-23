@@ -11,4 +11,4 @@ for i in age:
         summa += 1390
 if n > 3:
     summa -= summa * 0.1
-print('Сумма к оплате:', summa)
+print('Сумма к оплате:', sum)
