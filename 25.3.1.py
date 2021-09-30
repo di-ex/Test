@@ -30,18 +30,6 @@ def test_show_my_pets():
     pytest.driver.find_element_by_xpath('//a[@href="/my_pets"]').click()
 
     # Проверяем, что присутствуют все питомцы
-    # Способ 1
-    # amount_mypets = selenium.find_element_by_css_selector('.\\.col-sm-4.left').text
-    # amount_mypets = list(filter(str.isdigit, amount_mypets.split()))
-    # mypets_list = selenium.find_elements_by_css_selector('.\\.col-sm-8.right.fill tbody tr')
-    # assert len(mypets_list) == int(amount_mypets[-3])
-    # Способ 2 без явного ожидания
-    # amount_mypets = pytest.driver.find_element_by_css_selector('.\\.col-sm-4.left').text
-    # amount_mypets = amount_mypets.split()
-    # n = amount_mypets.index('Питомцев:') + 1
-    # mypets_list = pytest.driver.find_elements_by_css_selector('.\\.col-sm-8.right.fill tbody tr')
-    # assert len(mypets_list) == int(amount_mypets[n])
-    # Способ 2 с явным ожиданием
     amount_mypets = pytest.driver.find_element_by_css_selector('.\\.col-sm-4.left').text
     amount_mypets = amount_mypets.split()
     n = amount_mypets.index('Питомцев:') + 1
@@ -54,10 +42,9 @@ def test_show_my_pets():
     names = pytest.driver.find_elements_by_xpath('//table[@class="table table-hover"]/tbody/tr/td[1]')
     animal_type = pytest.driver.find_elements_by_xpath('//table[@class="table table-hover"]/tbody/tr/td[2]')
     age = pytest.driver.find_elements_by_xpath('//table[@class="table table-hover"]/tbody/tr/td[3]')
-    count = 0
-    all_names = []
 
     # Проверяем, что хотя бы у половины питомцев есть фото
+    count = 0
     for i in range(len(images)):
         if images[i].get_attribute('src') == '':
             count += 1
@@ -70,6 +57,7 @@ def test_show_my_pets():
         assert age[i].text != ''
 
     # Проверяем, что у всех питомцев разные имена
+    all_names = []
     for i in range(len(images)):
         all_names += (names[i].text).split()
     assert len(all_names) == len(set(all_names))
@@ -84,4 +72,3 @@ def test_show_my_pets():
         my_list.append(pets)
     for item1, item2 in itertools.combinations(my_list, 2):
         assert item1 != item2
-
